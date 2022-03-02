@@ -1,5 +1,5 @@
 const Button = props => {
-    return <span>.</span>
+    return <span><a href="#">.</a></span>
 }
 
 export default Button;
