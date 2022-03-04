@@ -6,9 +6,13 @@ import Actions from "./components/CurrentCat/Actions";
 import FavouritesHeader from "./components/Favourites/FavouritesHeader";
 import FavouritedCat from "./components/Favourites/FavouritedCat";
 
+import background from "./imgs/bg-tile2.jpg";
+
 function App() {
   const [cat, setCat] = useState();
   const [faves, setFaves] = useState([]);
+
+  const apiKey = process.env.REACT_APP_API_KEY;
 
   const loadExistingFaves = () => {
     const retrievedData = localStorage.getItem("storedFaves");
@@ -42,10 +46,7 @@ function App() {
   // This runs when 'faves' is changed
   useEffect(() => {
     saveToStorage(faves);
-    console.log("jjj");
   }, [faves]);
-
-  const apiKey = process.env.REACT_APP_API_KEY;
 
   const addToFaves = (cat) => {
     setFaves([...faves, cat]);
@@ -61,7 +62,7 @@ function App() {
   };
 
   return (
-    <div>
+    <div style={{ backgroundImage: `url(${background})` }}>
       <MainHeader />
       <CatImage cat={cat} />
       <Actions
