@@ -8,14 +8,13 @@ import FavouritedCat from "./components/Favourites/FavouritedCat";
 
 function App() {
   const [cat, setCat] = useState();
-
   const [faves, setFaves] = useState([]);
 
-  useEffect(() => {
-    fetchCat();
-  }, []);
-
-  const apiKey = process.env.REACT_APP_API_KEY;
+  const loadExistingFaves = () => {
+    const retrievedData = localStorage.getItem("storedFaves");
+    const favesLatest = JSON.parse(retrievedData);
+    setFaves(favesLatest);
+  };
 
   const fetchCat = async () => {
     const response = await fetch(
@@ -34,15 +33,32 @@ function App() {
     }
   };
 
+  // This runs when the component loads
+  useEffect(() => {
+    fetchCat();
+    loadExistingFaves();
+  }, []);
+
+  // This runs when 'faves' is changed
+  useEffect(() => {
+    saveToStorage(faves);
+    console.log("jjj");
+  }, [faves]);
+
+  const apiKey = process.env.REACT_APP_API_KEY;
+
   const addToFaves = (cat) => {
     setFaves([...faves, cat]);
+    fetchCat();
   };
 
-  localStorage.setItem("storedFaves", JSON.stringify(faves));
+  const saveToStorage = (newFaves) => {
+    localStorage.setItem("storedFaves", JSON.stringify(newFaves));
+  };
 
-  const retrievedData = localStorage.getItem("storedFaves");
-
-  const favesLatest = JSON.parse(retrievedData);
+  const removeFave = (removeMe) => {
+    setFaves(faves.filter((f) => f !== removeMe));
+  };
 
   return (
     <div>
@@ -58,12 +74,10 @@ function App() {
 
       {faves.map(function (fave, faveIndex) {
         return (
-          <img
-            src={fave}
-            key={faveIndex}
-            width="100"
-            height="100"
-          />
+          <div key={faveIndex}>
+            <img src={fave} width="100" height="100" />
+            <button onClick={() => removeFave(fave)}>Remove</button>
+          </div>
         );
       })}
     </div>
