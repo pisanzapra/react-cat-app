@@ -7,7 +7,7 @@ const Actions = (props) => {
   return (
     <div>
       <button onClick={props.fetchCatHandler}>Reject</button>
-      <button onClick={() => props.addToFavesHandler({cat})}>Save</button> 
+      <button onClick={() => props.addToFavesHandler(cat)}>Save</button> 
       <Button />
       <Button />
     </div>

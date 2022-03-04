@@ -38,9 +38,7 @@ function App() {
     setFaves([...faves, cat]);
   };
 
-  const favesStrings = faves.map((i) => i.cat);
-
-  localStorage.setItem("storedFaves", JSON.stringify(favesStrings));
+  localStorage.setItem("storedFaves", JSON.stringify(faves));
 
   const retrievedData = localStorage.getItem("storedFaves");
 
@@ -58,11 +56,11 @@ function App() {
       />
       <FavouritesHeader />
 
-      {favesStrings.map(function (faveString, faveStringIndex) {
+      {faves.map(function (fave, faveIndex) {
         return (
           <img
-            src={faveString}
-            key={faveStringIndex}
+            src={fave}
+            key={faveIndex}
             width="100"
             height="100"
           />
