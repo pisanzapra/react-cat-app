@@ -1,24 +1,19 @@
 import { useEffect, useState } from "react";
 
-import CatImage from "./components/CurrentCat/CatImage";
-import MainHeader from "./components/MainHeader/MainHeader";
-import Actions from "./components/CurrentCat/Actions";
+import Title from "./components/MainHeader/Title";
+import Card from "./components/CurrentCat/Card";
+import Reject from "./components/CurrentCat/Reject";
+import Save from "./components/CurrentCat/Save";
 import FavouritesHeader from "./components/Favourites/FavouritesHeader";
-import FavouritedCat from "./components/Favourites/FavouritedCat";
+import FavouritesList from "./components/Favourites/FavouritesList";
 
-import background from "./imgs/bg-tile2.jpg";
+import classes from "./App.module.css";
 
 function App() {
   const [cat, setCat] = useState();
   const [faves, setFaves] = useState([]);
 
   const apiKey = process.env.REACT_APP_API_KEY;
-
-  const loadExistingFaves = () => {
-    const retrievedData = localStorage.getItem("storedFaves");
-    const favesLatest = JSON.parse(retrievedData);
-    setFaves(favesLatest);
-  };
 
   const fetchCat = async () => {
     const response = await fetch(
@@ -37,16 +32,11 @@ function App() {
     }
   };
 
-  // This runs when the component loads
-  useEffect(() => {
-    fetchCat();
-    loadExistingFaves();
-  }, []);
-
-  // This runs when 'faves' is changed
-  useEffect(() => {
-    saveToStorage(faves);
-  }, [faves]);
+  const loadExistingFaves = () => {
+    const retrievedData = localStorage.getItem("storedFaves");
+    const favesLatest = JSON.parse(retrievedData);
+    setFaves(favesLatest);
+  };
 
   const addToFaves = (cat) => {
     setFaves([...faves, cat]);
@@ -61,27 +51,26 @@ function App() {
     setFaves(faves.filter((f) => f !== removeMe));
   };
 
-  return (
-    <div style={{ backgroundImage: `url(${background})` }}>
-      <MainHeader />
-      <CatImage cat={cat} />
-      <Actions
-        cat={cat}
-        faves={faves}
-        fetchCatHandler={fetchCat}
-        addToFavesHandler={addToFaves}
-      />
-      <FavouritesHeader />
+  // This runs when the component loads
+  useEffect(() => {
+    fetchCat();
+    loadExistingFaves();
+  }, []);
 
-      {faves.map(function (fave, faveIndex) {
-        return (
-          <div key={faveIndex}>
-            <img src={fave} width="100" height="100" />
-            <button onClick={() => removeFave(fave)}>Remove</button>
-          </div>
-        );
-      })}
-    </div>
+  // This runs when 'faves' is changed
+  useEffect(() => {
+    saveToStorage(faves);
+  }, [faves]);
+
+  return (
+    <main className={classes.app}>
+      <Title />
+      <Card cat={cat} />
+      <Reject fetchCatHandler={fetchCat} />
+      <Save cat={cat} faves={faves} addToFavesHandler={addToFaves} />
+      <FavouritesHeader />
+      <FavouritesList faves={faves} removeFave={removeFave} />
+    </main>
   );
 }
 

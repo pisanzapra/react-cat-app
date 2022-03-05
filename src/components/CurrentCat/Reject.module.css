@@ -1,0 +1,11 @@
+.reject {
+  grid-area: reject;
+  background: url("../../imgs/cross.png") no-repeat center tomato;
+  background-size: 20px;
+  justify-self: end;
+}
+
+.reject:hover,
+.remove:hover {
+  background-color: #da553d;
+}

@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  background: url("./imgs/bg.jpg") #f2f2f2;
+}
+
+.app {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 520px 120px 1fr;
+  grid-template-areas:
+    "title title"
+    "card card"
+    "reject save"
+    "subtitle subtitle"
+    "favourites favourites";
+  height: 100vh;
+  font-family: arial, helvetica, sans-serif;
+}
+
+button {
+  width: 70px;
+  height: 70px;
+  margin: 20px 5px;
+  border: 8px solid white;
+  border-radius: 50%;
+  color: transparent;
+  cursor: pointer;
+  box-shadow: 0 2px 10px 5px rgba(0, 0, 0, 0.1);
+}

@@ -1,0 +1,6 @@
+.title {
+  grid-area: title;
+  margin: 0.5em;
+  text-align: center;
+  color: tomato;
+}

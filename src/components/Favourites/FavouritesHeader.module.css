@@ -1,0 +1,6 @@
+.subtitle {
+  grid-area: subtitle;
+  margin: 0 2rem;
+  text-align: center;
+  color: tomato;
+}

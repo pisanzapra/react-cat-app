@@ -1,0 +1,9 @@
+.save {
+  grid-area: save;
+  background: url("../../imgs/tick.png") no-repeat center green;
+  background-size: 20px;
+}
+
+.save:hover {
+  background-color: #51c384;
+}
