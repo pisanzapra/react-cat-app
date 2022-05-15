@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import Title from "./components/MainHeader/Title";
 import Card from "./components/CurrentCat/Card";
@@ -15,7 +15,7 @@ function App() {
 
   const apiKey = process.env.REACT_APP_API_KEY;
 
-  const fetchCat = async () => {
+  const fetchCat = useCallback(async () => {
     const response = await fetch(
       "https://api.thecatapi.com/v1/images/search",
       {
@@ -30,7 +30,7 @@ function App() {
     } catch (err) {
       console.log(err);
     }
-  };
+  }, [apiKey]);
 
   const loadExistingFaves = () => {
     const retrievedData = localStorage.getItem("storedFaves");
@@ -55,7 +55,7 @@ function App() {
   useEffect(() => {
     fetchCat();
     loadExistingFaves();
-  }, []);
+  }, [fetchCat]);
 
   // This runs when 'faves' is changed
   useEffect(() => {

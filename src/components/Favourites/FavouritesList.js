@@ -6,7 +6,7 @@ const FavouritesList = (props) => {
       {props.faves.map(function (fave, faveIndex) {
         return (
           <li key={faveIndex} class={classes["favourites-item"]}>
-            <img src={fave} class={classes["favourites-img"]} alt="A saved cat picture" />
+            <img src={fave} class={classes["favourites-img"]} alt="A favourited cat" />
             <button
               onClick={() => props.removeFave(fave)}
               class={classes.remove}
