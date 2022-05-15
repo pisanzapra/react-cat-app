@@ -34,6 +34,9 @@ function App() {
 
   const loadExistingFaves = () => {
     const retrievedData = localStorage.getItem("storedFaves");
+    if (!retrievedData) {
+      return;
+    }    
     const favesLatest = JSON.parse(retrievedData);
     setFaves(favesLatest);
   };
