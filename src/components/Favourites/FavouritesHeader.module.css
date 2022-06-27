@@ -2,5 +2,6 @@
   grid-area: subtitle;
   margin: 0 2rem;
   text-align: center;
-  color: tomato;
+  color: rgb(19, 13, 189);
+  font-family: 'Titan One', cursive;
 }
